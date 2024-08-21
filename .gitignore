@@ -1,0 +1,28 @@
+# Binarios para programas y plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Archivos de prueba
+*.test
+
+# Archivos de cobertura de salida
+*.out
+
+# Directorios de dependencias
+/vendor/
+
+# Archivos de IDE y editores
+.idea/
+*.swp
+*.swo
+.vscode/
+
+# Archivo de dependencias
+go.sum
+
+# Archivos temporales del sistema operativo
+.DS_Store
+Thumbs.db
