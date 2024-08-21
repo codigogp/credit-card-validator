@@ -5,6 +5,11 @@ import "strings"
 // ValidateLuhn verifica si un número de tarjeta de crédito es válido según el algoritmo de Luhn
 func ValidateLuhn(cardNumber string) bool {
 
+	// Primero, verificamos si la cadena está vacía
+	if len(cardNumber) == 0 {
+		return false
+	}
+
 	var sum int
 	parity := len(cardNumber) % 2
 
