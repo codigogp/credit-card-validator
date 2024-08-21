@@ -12,8 +12,9 @@ type CreditCardRequest struct {
 }
 
 type CreditCardResponse struct {
-	Valid bool   `json:"valid"`
-	Type  string `json:"type, omitempty"`
+	Valid   bool   `json:"valid"`
+	Network string `json:"network"`
+	Number  string `json:"number"`
 }
 
 func HandleValidateCreditCard(w http.ResponseWriter, r *http.Request) {
@@ -36,14 +37,15 @@ func HandleValidateCreditCard(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Ejecutar el algoritmo de Luhn
+	// Ejecutar el algoritmo de Luhn y identificar la red de pago
 	valid := validator.ValidateLuhn(req.Number)
-	cardType := validator.IdentifyCardType(req.Number)
+	network := validator.IdentifyCardType(req.Number)
 
 	// Preparar la respuesta
 	resp := CreditCardResponse{
-		Valid: valid,
-		Type:  cardType,
+		Valid:   valid,
+		Network: network,
+		Number:  req.Number,
 	}
 
 	w.Header().Set("Content-Type", "application/json")
