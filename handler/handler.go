@@ -17,11 +17,12 @@ type CreditCardResponse struct {
 }
 
 func HandleValidateCreditCard(w http.ResponseWriter, r *http.Request) {
-	if r.Method != http.MethodPost {
+	if r.Method != http.MethodGet {
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 		return
 	}
 
+	// Decodificar el payload JSON
 	var req CreditCardRequest
 	decoder := json.NewDecoder(r.Body)
 	if err := decoder.Decode(&req); err != nil {
@@ -29,9 +30,17 @@ func HandleValidateCreditCard(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// Validar que el número de tarjeta no esté vacío
+	if req.Number == "" {
+		http.Error(w, "Card number is required", http.StatusBadRequest)
+		return
+	}
+
+	// Ejecutar el algoritmo de Luhn
 	valid := validator.ValidateLuhn(req.Number)
 	cardType := validator.IdentifyCardType(req.Number)
 
+	// Preparar la respuesta
 	resp := CreditCardResponse{
 		Valid: valid,
 		Type:  cardType,
