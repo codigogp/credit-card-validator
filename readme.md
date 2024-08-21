@@ -33,7 +33,7 @@ import (
 )
 
 func main() {
-    http.HandleFunc("/validate", handler.ValidateCard)
+    http.HandleFunc("/validate", handler.HandleValidateCreditCard)
     log.Println("Server starting on http://localhost:8080")
     log.Fatal(http.ListenAndServe(":8080", nil))
 }
@@ -71,16 +71,6 @@ credit-card-validator/
 ├── go.mod
 └── README.md
 ```
-
-## Contribución
-
-¡Las contribuciones son bienvenidas! Por favor, lee las directrices de contribución antes de enviar un pull request.
-
-1. Fork el proyecto
-2. Crea tu rama de características (`git checkout -b feature/AmazingFeature`)
-3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
-4. Push a la rama (`git push origin feature/AmazingFeature`)
-5. Abre un Pull Request
 
 ## Pruebas
 
